@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#000000">
     <title>创业小账本</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <!-- Supabase 客户端 - 本地加载，不依赖外部 CDN -->
     <!-- Supabase 已内联 -->
@@ -62,19 +62,19 @@
         <!-- 移动端底部导航 -->
         <nav class="bottom-nav" id="bottomNav">
             <a href="#inspiration" class="nav-item active" data-module="inspiration">灵感</a>
+            <a href="#competitor" class="nav-item" data-module="competitor">竞品</a>
+            <a href="#supplier" class="nav-item" data-module="supplier">供应商</a>
             <a href="#product" class="nav-item" data-module="product">设计</a>
-            <a href="#calculator" class="nav-item" data-module="calculator">成本</a>
-            <a href="#sop" class="nav-item" data-module="sop">SOP</a>
-            <a href="#xiaohongshu" class="nav-item" data-module="xiaohongshu">运营</a>
             <a href="#more" class="nav-item" id="moreNav">更多</a>
         </nav>
 
         <!-- 更多菜单弹窗 -->
         <div class="modal" id="moreModal">
             <div class="modal-overlay" onclick="app.closeMoreModal()"></div>
-            <div class="modal-content more-menu">
-                <a href="#supplier" class="menu-item" data-module="supplier">供应商管理</a>
-                <a href="#competitor" class="menu-item" data-module="competitor">竞品监控</a>
+            <div class="modal-dialog more-menu">
+                <a href="#calculator" class="menu-item" data-module="calculator">成本计算</a>
+                <a href="#sop" class="menu-item" data-module="sop">生产SOP</a>
+                <a href="#xiaohongshu" class="menu-item" data-module="xiaohongshu">小红书运营</a>
                 <a href="#ai" class="menu-item" data-module="ai">AI助手</a>
                 <div class="menu-divider"></div>
                 <button class="menu-item" onclick="app.exportData(); app.closeMoreModal()">导出数据</button>
@@ -774,7 +774,7 @@ const db = {
     showLoginScreen() {
       // 点击登录时初始化 Supabase（避免页面加载时触发网络请求）
       if (!db.syncEnabled) {
-        db.initSupabase('https://xbqjdiliczbdjmybiygm.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhicWpkaWxpY3piZGpteWJpeWdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0NTQ0NTUsImV4cCI6MjA5ODAzMDQ1NX0.Hurjut5O1nVhOCfSRADKLvCDss_VzT0D2c4vKvOZx3k');
+        db.initSupabase('https://lpesjfbczkuelyawfcd.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxwZXNqZmJjemt1ZWxveWF3ZmNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0MTM3MzMsImV4cCI6MjA5ODk4OTczM30.fS4VbgyyPKzR910wP9J7YtwKmXvKYKhqriW1jaiFM9E');
       }
       const overlay = document.getElementById('loginOverlay');
       if (overlay) {
@@ -2158,6 +2158,7 @@ const competitorModule = {
             <div class="competitor-title-row">
               <h3 class="competitor-name">${item.name}</h3>
               <span class="tag tag-primary platform-tag">${item.platform || '未知平台'}</span>
+              <button class="btn btn-xs btn-ghost edit-btn-inline" onclick="event.stopPropagation(); app.modules.competitor.openForm(${item.id})" title="编辑">编辑</button>
             </div>
             <div class="competitor-stats">
               ${item.followers ? `<span class="stat-item"><b>${item.followers}</b> 粉丝</span>` : ''}
